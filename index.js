@@ -1,6 +1,7 @@
+require('dotenv').config()
 const express = require("express");
 const app = express();
-const port = 3000;
+const PORT = 3000 || process.env.PORT;
 const {
   CreateSeller,
   getSeller,
@@ -32,6 +33,6 @@ app.get("/product", getProduct);
 app.patch("/product/:id", updateProduct);
 app.delete("/product", deleteProduct);
 
-app.listen(port, () => {
+app.listen(PORT, () => {
   console.log("yes it is listing");
 });

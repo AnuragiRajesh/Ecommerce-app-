@@ -1,7 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-
 ////// For Creating a Product ///////////
 const CreateProduct = async (req, res) => {
   const { sellerId } = req.params;
@@ -20,7 +19,6 @@ const CreateProduct = async (req, res) => {
   }
 };
 
-
 /////////FOr getting the data of a Product ///////////
 const getProduct = async (req, res) => {
   try {
@@ -31,24 +29,21 @@ const getProduct = async (req, res) => {
   }
 };
 
-
 const updateProduct = async (req, res) => {
-  const {id} = req.params
-  console.log(id)
-  console.log(req.bodycleasd)
+  const { id } = req.params;
+  console.log(id);
+  console.log(req.bodycleasd);
   try {
     const ress = await prisma.products.update({
       where: {
-        id: parseInt(id)
+        id: parseInt(id),
       },
-      data:req.body
+      data: req.body,
     });
     res.status(200).json({ smg: "succesfull", data: ress });
-    
   } catch (error) {
     res.status(400).json({ msg: "Bad request", error });
-    console.log(error)
-    
+    console.log(error);
   }
 
   // where: {
@@ -57,36 +52,24 @@ const updateProduct = async (req, res) => {
   // data: {
   //   name: 'Viola the Magnificent',
   // }
-  
-  
 };
-
-
-
 
 /////// For deleting a product //////////
 const deleteProduct = async (req, res) => {
   try {
     const ress = await prisma.products.delete({
-      where: req.body
+      where: req.body,
     });
     res.status(200).json({ smg: "succesfull", data: ress });
-    
   } catch (error) {
     res.status(400).json({ msg: "Bad request", error });
-    console.log(error)
-    
+    console.log(error);
   }
-  
-  
 };
-
-
-
 
 module.exports = {
   CreateProduct,
   getProduct,
   deleteProduct,
-  updateProduct
+  updateProduct,
 };
