@@ -11,6 +11,7 @@ const CreateSeller = async (req, res) => {
 
     res.status(200).json({ msg: "successfully added Sellers", result });
   } catch (error) {
+    console.log(error)
     res.status(400).json({ msg: "Bad request", error });
   }
 };
@@ -46,12 +47,6 @@ const updateSeller = async (req, res) => {
     
   }
 
-  // where: {
-  //   email: 'viola@prisma.io',
-  // },
-  // data: {
-  //   name: 'Viola the Magnificent',
-  // }
   
   
 };

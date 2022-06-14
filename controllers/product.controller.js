@@ -21,11 +21,36 @@ const CreateProduct = async (req, res) => {
 
 /////////FOr getting the data of a Product ///////////
 const getProduct = async (req, res) => {
+  const {sortBy, sortOrder, search} = req.query;
+  // console.log(`limt: ${limit} offset:${offset}`)
   try {
-    const resp = await prisma.products.findMany({});
+
+    const query = {
+      skip: parseInt(offset),
+      take: parseInt(limit),
+
+    }
+
+    if(sortBy&&sortOrder){
+      query['orderBy']={
+        [sortBy]:sortOrder
+      }
+    }
+
+
+    // console.log('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
+    if (search){
+      
+      query['where']={
+        description:search
+
+      }
+    }
+    const resp = await prisma.products.findMany(query);
     res.status(200).json({ smg: "succesfull", data: resp });
   } catch (error) {
     res.status(400).json({ msg: "Bad request", error });
+    console.log(error)
   }
 };
 

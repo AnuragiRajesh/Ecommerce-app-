@@ -1,7 +1,13 @@
-require('dotenv').config()
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
+app.use(express.static("public"));
+
+const {authenticate } = require("./middleware/auth")
+
+const { login, signup, getUser} = require("./controllers/user.controler");
+
 const {
   CreateSeller,
   getSeller,
@@ -23,7 +29,7 @@ app.use(express.json());
 //     res.send("<h1>yes running</h1>")
 // })
 
-app.post("/seller", CreateSeller);
+app.post("/seller", authenticate, CreateSeller);
 app.get("/seller", getSeller);
 app.patch("/seller/:id", updateSeller);
 app.delete("/seller", deleteSeller);
@@ -33,6 +39,10 @@ app.get("/product", getProduct);
 app.patch("/product/:id", updateProduct);
 app.delete("/product", deleteProduct);
 
+app.post("/auth/signup", signup);
+app.post("/auth/login", login);
+app.get("/user",getUser)
+
 app.listen(PORT, () => {
-  console.log("yes it is listing");
+  console.log(`yes it is listing ${PORT}`);
 });

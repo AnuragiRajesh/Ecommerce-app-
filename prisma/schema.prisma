@@ -15,10 +15,10 @@ model Sellers {
   name        String @db.VarChar(30)
   email       String @unique
   gst_number  String?
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
   phone_number String @db.VarChar
   product    Products[]
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
 
 }
@@ -39,6 +39,24 @@ model Products {
   updatedAt   DateTime @default(now())
 
   
+
+}
+enum Role {
+  ADMIN
+  USER
+  SELLER
+}
+model User {
+  id          Int @id @default(autoincrement())
+  name        String @db.VarChar(30)
+  email       String @unique
+  password  String
+  phone_number String @db.VarChar
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  dob  String 
+  role Role
+
 
 }
  
